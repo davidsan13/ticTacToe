@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    
+    height: 100vh;
+    
+}
+.gameboard {
+    // height: 100vh;
+    // width: 100vh;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    grid-template-columns: repeat(3, auto);
+    div {
+        height: 100px;
+        width: 100px;
+        border: 1px solid black;
+    }
+}
