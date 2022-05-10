@@ -1,15 +1,42 @@
-(function() {
+const game = (function() {
     const gameBoard = document.querySelector(".gameboard");
-    const board = [" ", " ", " ", " ", " ", " ", " ", " ", " ", ];
+    let board = ["X ", "O ", " ", " ", " ", " ", " ", " ", " ", ];
     console.log(gameBoard);
 
-    board.forEach(function(item) {
-        const newdiv = document.createElement("div");
-        newdiv.innerHTML = item;
-        newdiv.classList.add("div");
-        gameBoard.appendChild(newdiv);
-        console.log(item);
-    });
+    
+    function render() {
+        var counter = 0;
+        board.forEach(function(item) {
+            const newdiv = document.createElement("div");
+            newdiv.innerHTML = item;
+            newdiv.classList.add("grid");
+            newdiv.setAttribute('data-index', counter)
+            gameBoard.appendChild(newdiv);
+            counter++
+            console.log(item);
+        });
+
+    }
+    function updateBoard() {
+
+    }
+    return {
+        board, 
+        render,
+    };
 })();
 
-player
+game.render()
+
+const gridItems = document.querySelectorAll('.grid');
+gridItems.forEach((item) => { 
+    item.addEventListener('click', (e) => {
+        console.log(e.target.dataset.index)
+    })
+});
+
+
+const player = (playerName, marker) => {
+    playerName
+    marker
+}
