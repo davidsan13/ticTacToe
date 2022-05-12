@@ -17,6 +17,10 @@ body{
     justify-content: center;
     grid-template-columns: repeat(3, auto);
     .cell {
+        font-size: 80px;
+        display: grid;
+        align-items: center;
+        justify-items: center;
         height: 100px;
         width: 100px;
         border: 1px solid black;
