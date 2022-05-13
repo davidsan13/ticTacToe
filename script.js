@@ -13,6 +13,7 @@ const game = (function() {
         return _board[index]
     };
 
+
     function render() {
         var counter = 0;
         _board.forEach(function(item) {
@@ -55,21 +56,43 @@ const player = (playerName, marker) => {
 }
 
 const displayController = (() => {
+    const WINNING_COMBINATIONS = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
     const gridItems = document.querySelectorAll('.cell');
     gridItems.forEach(item => { 
         item.addEventListener('click', (e) => {
             // console.log(e.target.classList.add(xMark))
             let index = e.target.dataset.cell;
+            if(isAvailable(index)) {
+                game.setMark(index, Player.getMark())
+                e.target.textContent = game.getMark(index);
+                switchPlayer(Player);
+            }
+            
             // console.log(cell1)
-            game.setMark(index, Player.getMark());
-            e.target.textContent = game.getMark(index);
-            switchPlayer(Player)
+            
         })
     });
 
     let switchPlayer = currentPlayer =>
         (currentPlayer.getName() === 'player1') ? Player = player2 : Player = player1
     
+    let isAvailable = index => {
+        let arrayValue = game.getMark(index)
+        if (arrayValue== " ") {
+            return true
+        }
+        return false;
+    }
+        
     // updateBoard
     // gameOver
     
