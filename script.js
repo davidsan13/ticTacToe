@@ -42,11 +42,11 @@ game.render()
 
 
 
-const player = (playerName, marker) => {
-    const getMark = () => {
+let player = (playerName, marker) => {
+    let getMark = () => {
         return marker
     }
-    const getName = () => {
+    let getName = () => {
         return playerName
     }
     return {
@@ -55,7 +55,7 @@ const player = (playerName, marker) => {
     }
 }
 
-const displayController = (() => {
+let displayController = (() => {
     const WINNING_COMBINATIONS = [
         [0, 1, 2],
         [3, 4, 5],
@@ -66,7 +66,7 @@ const displayController = (() => {
         [0, 4, 8],
         [2, 4, 6]
       ];
-    const gridItems = document.querySelectorAll('.cell');
+    let gridItems = document.querySelectorAll('.cell');
     gridItems.forEach(item => { 
         item.addEventListener('click', (e) => {
             // console.log(e.target.classList.add(xMark))
@@ -74,6 +74,13 @@ const displayController = (() => {
             if(isAvailable(index)) {
                 game.setMark(index, Player.getMark())
                 e.target.textContent = game.getMark(index);
+                if(checkWinner(Player.getMark())) {
+                    console.log("winner");
+                    endGame(false);
+                } else if(isDraw()) {
+                    endGame(true);
+
+                };
                 switchPlayer(Player);
             }
             
@@ -92,7 +99,28 @@ const displayController = (() => {
         }
         return false;
     }
-        
+     
+    let checkWinner = (mark) => {
+        return WINNING_COMBINATIONS.some(combination => {
+            return combination.every(index => {
+              return gridItems[index].textContent == mark
+            })
+        })
+    }
+
+    let isDraw = () => {
+        gridItems.every(item => {
+            return item.textContent == "X" || item.textContent == "O"
+        })
+    }
+
+    let endGame = (draw) => {
+        if(draw) {
+            message = "Draw!"
+        } else {
+            message = player.getMark() + "wins"
+        }
+    }
     // updateBoard
     // gameOver
     
