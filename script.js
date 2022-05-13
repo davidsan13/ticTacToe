@@ -71,29 +71,24 @@ let displayController = (() => {
     const message = document.querySelector(".message")
     let gridItems = document.querySelectorAll('.cell');
     gridItems.forEach(item => { 
-        item.addEventListener('click', (e) => {
-            // console.log(e.target.classList.add(xMark))
-            let index = e.target.dataset.cell;
-            if(isAvailable(index)) {
-                game.setMark(index, Player.getMark())
-                e.target.textContent = game.getMark(index);
-                if(checkWinner(Player.getMark())) {
-                    console.log("winner");
-                    endGame(false);
-                } else if(isDraw()) {
-                    console.log("Draw!")
-                    endGame(true);
-                
-
-                };
-                switchPlayer(Player);
-            }
-            
-            // console.log(cell1)
-            
+        item.addEventListener('click', (e) => { handle (e)   
         })
     });
-
+    const handle = (e) => {
+        let index = e.target.dataset.cell;
+        if(isAvailable(index)) {
+            game.setMark(index, Player.getMark())
+            e.target.textContent = game.getMark(index);
+            if(checkWinner(Player.getMark())) {
+                console.log("winner");
+                endGame(false);
+            } else if(isDraw()) {
+                console.log("Draw!")
+                endGame(true);
+            };
+            switchPlayer(Player);
+        }
+    }
     let switchPlayer = currentPlayer =>
         (currentPlayer.getName() === 'player1') ? Player = player2 : Player = player1
     
@@ -127,8 +122,12 @@ let displayController = (() => {
         }
         messageContainer.classList.add("show")
     }
+
+    const reset = () => {
+
+    }
     // updateBoard
-    // gameOver
+    
     
 
 })();
@@ -140,12 +139,3 @@ const player1 = player("player1", 'X');
 const player2 = player("player2", 'O');
 
 var Player = player1;
-function switchPlayer(currentPlayer){
-    if (currentPlayer.getName() == 'player1') {
-        console.log('hello')
-        Player = player2
-        console.log(currentPlayer.getName())
-    } 
-    
-   
-}
