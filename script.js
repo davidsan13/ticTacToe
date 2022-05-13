@@ -119,8 +119,14 @@ let displayController = (() => {
         })
     }
 
-  
-
+    let endGame = (draw) => {
+        if(draw) {
+            message.textContent = "Draw!"
+        } else {
+            message.textContent = Player.getMark() + "wins"
+        }
+        messageContainer.classList.add("show")
+    }
     // updateBoard
     // gameOver
     
