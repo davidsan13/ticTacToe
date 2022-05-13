@@ -66,6 +66,9 @@ let displayController = (() => {
         [0, 4, 8],
         [2, 4, 6]
       ];
+
+    const messageContainer = document.querySelector(".message-container")
+    const message = document.querySelector(".message")
     let gridItems = document.querySelectorAll('.cell');
     gridItems.forEach(item => { 
         item.addEventListener('click', (e) => {
@@ -78,7 +81,9 @@ let displayController = (() => {
                     console.log("winner");
                     endGame(false);
                 } else if(isDraw()) {
+                    console.log("Draw!")
                     endGame(true);
+                
 
                 };
                 switchPlayer(Player);
@@ -109,18 +114,13 @@ let displayController = (() => {
     }
 
     let isDraw = () => {
-        gridItems.every(item => {
+        return [...gridItems].every(item => {
             return item.textContent == "X" || item.textContent == "O"
         })
     }
 
-    let endGame = (draw) => {
-        if(draw) {
-            message = "Draw!"
-        } else {
-            message = player.getMark() + "wins"
-        }
-    }
+  
+
     // updateBoard
     // gameOver
     
