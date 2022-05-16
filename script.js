@@ -97,7 +97,7 @@ let displayController = (() => {
             game.setMark(index, Player.getMark())
             e.target.textContent = game.getMark(index);
             if(checkWinner(Player.getMark())) {
-                console.log("winner");
+                
                 endGame(false);
             } else if(isDraw()) {
                 console.log("Draw!")
