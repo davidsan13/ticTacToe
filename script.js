@@ -71,12 +71,16 @@ let displayController = (() => {
     const messageContainer = document.querySelector(".message-container")
     const message = document.querySelector(".message")
     let gridItems = document.querySelectorAll('.cell');
-  
+    const turnMessage = document.querySelector(".headMessage");
+    
+    const turnAlert = () => {
+        turnMessage.textContent = Player.getMark() + " turn!"
+    }
+
     
     const startGame = () => {
         for(let i=0; i<game.getLength(); i++){
-            game.setMark(i, " ")
-            
+            game.setMark(i, " ")  
         }
         gridItems.forEach(item => { 
             item.removeEventListener('click', handle)
@@ -100,6 +104,7 @@ let displayController = (() => {
                 endGame(true);
             };
             switchPlayer(Player);
+            turnAlert();
         }
     }
    
