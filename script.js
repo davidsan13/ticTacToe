@@ -65,20 +65,28 @@ let displayController = (() => {
         [2, 4, 6]
       ];
     
-    const player1 = player("player1", "X");
-    const player2 = player("player2", "O");
-    let Player = player1;
-    const messageContainer = document.querySelector(".message-container")
-    const message = document.querySelector(".message")
+    let player1= " ";
+    let player2 = " ";
+    let Player = " ";
+    const messageContainer = document.querySelector(".message-container");
+    const message = document.querySelector(".message");
     let gridItems = document.querySelectorAll('.cell');
     const turnMessage = document.querySelector(".headMessage");
     
+    
     const turnAlert = () => {
-        turnMessage.textContent = Player.getMark() + " turn!"
+        turnMessage.textContent = Player.getMark() + " Turn"
     }
-
+    const createPlayers = () => {
+        player1 = player("player1", "X");
+        player2 = player("player2", "O");
+        Player = player1;
+      
+    }
     
     const startGame = () => {
+        createPlayers();
+        turnAlert()
         for(let i=0; i<game.getLength(); i++){
             game.setMark(i, " ")  
         }
@@ -89,7 +97,7 @@ let displayController = (() => {
             item.textContent = game.getMark(index)
         });
         messageContainer.classList.remove('show')
-        console.log("hello")
+       
     }
     const handle = (e) => {
         let index = e.target.dataset.cell;
@@ -97,15 +105,13 @@ let displayController = (() => {
             game.setMark(index, Player.getMark())
             e.target.textContent = game.getMark(index);
             if(checkWinner(Player.getMark())) {
-                
-                endGame(false);
+                return endGame(false);
             } else if(isDraw()) {
-                console.log("Draw!")
-                endGame(true);
+                return endGame(true);
             };
             switchPlayer(Player);
-            turnAlert();
         }
+        turnAlert();
     }
    
     let switchPlayer = currentPlayer =>
@@ -113,7 +119,7 @@ let displayController = (() => {
     
     let isAvailable = index => {
         let arrayValue = game.getMark(index)
-        if (arrayValue== " ") {
+        if (arrayValue == " ") {
             return true
         }
         return false;
@@ -147,7 +153,8 @@ let displayController = (() => {
     resetButton.addEventListener('click', startGame);
 
     return {
-        startGame
+        startGame,
+        createPlayers
     }
 
     // updateBoard

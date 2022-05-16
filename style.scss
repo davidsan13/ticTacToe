@@ -4,10 +4,20 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 62.5%;
+}
+
 body{
-    
     height: 100vh;
-    
+    font-family: "Arial", sans-serif;
+}
+
+.header {
+    font-size: 4rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 }
 .gameboard {
     height: 100vh;
@@ -17,7 +27,8 @@ body{
     justify-content: center;
     grid-template-columns: repeat(3, auto);
     .cell {
-        font-size: 80px;
+        font-size: 8rem;
+    
         display: grid;
         align-items: center;
         justify-items: center;
