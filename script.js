@@ -1,9 +1,7 @@
-const xMark = "X"
-const oMark = 'O'
 
 const game = (function() {
     const gameBoard = document.querySelector(".gameboard");
-    const _board = [" ", " ", " ", " ", " ", " ", " ", " ", " ", ];
+    const _board = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
 
     const setMark = (index, mark) => {
         _board[index] = mark;
@@ -13,6 +11,9 @@ const game = (function() {
         return _board[index]
     };
 
+    const getLength = () => {
+        return _board.length
+    }
 
     function render() {
         var counter = 0;
@@ -32,15 +33,12 @@ const game = (function() {
         setMark,
         getMark,
         render,
+        getLength,
+        _board
     }    
 })();
 
 game.render()
-
-
-
-
-
 
 let player = (playerName, marker) => {
     let getMark = () => {
@@ -66,14 +64,29 @@ let displayController = (() => {
         [0, 4, 8],
         [2, 4, 6]
       ];
-
+    
+    const player1 = player("player1", "X");
+    const player2 = player("player2", "O");
+    let Player = player1;
     const messageContainer = document.querySelector(".message-container")
     const message = document.querySelector(".message")
     let gridItems = document.querySelectorAll('.cell');
-    gridItems.forEach(item => { 
-        item.addEventListener('click', (e) => { handle (e)   
-        })
-    });
+  
+    
+    const startGame = () => {
+        for(let i=0; i<game.getLength(); i++){
+            game.setMark(i, " ")
+            
+        }
+        gridItems.forEach(item => { 
+            item.removeEventListener('click', handle)
+            item.addEventListener('click', handle)
+            index = item.dataset.cell
+            item.textContent = game.getMark(index)
+        });
+        messageContainer.classList.remove('show')
+        console.log("hello")
+    }
     const handle = (e) => {
         let index = e.target.dataset.cell;
         if(isAvailable(index)) {
@@ -89,6 +102,7 @@ let displayController = (() => {
             switchPlayer(Player);
         }
     }
+   
     let switchPlayer = currentPlayer =>
         (currentPlayer.getName() === 'player1') ? Player = player2 : Player = player1
     
@@ -118,24 +132,25 @@ let displayController = (() => {
         if(draw) {
             message.textContent = "Draw!"
         } else {
-            message.textContent = Player.getMark() + "wins"
+            message.textContent = Player.getMark()  +  " wins"
         }
         messageContainer.classList.add("show")
+        
+    }
+    
+    const resetButton = document.querySelector("#restartButton");
+    resetButton.addEventListener('click', startGame);
+
+    return {
+        startGame
     }
 
-    const reset = () => {
-
-    }
     // updateBoard
     
     
 
 })();
 
+displayController.startGame();
+
 // createPlayer() => {
-
-// }
-const player1 = player("player1", 'X');
-const player2 = player("player2", 'O');
-
-var Player = player1;
